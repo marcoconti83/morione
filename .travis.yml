@@ -1,0 +1,5 @@
+language: objective-c
+xcode_project: Morione.xcodeproj
+xcode_scheme: Morione
+osx_image: xcode7.1
+
