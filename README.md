@@ -3,6 +3,8 @@
 
 Morione is a Swift subprocess execution library intended to uses in Swift scripts, inspired by [Python subprocess](https://docs.python.org/2/library/subprocess.html). It allows scripts to spawn subprocesses and capture the output and return status. While designed with Swift scripting in mind, it can also be used in other scenarios (e.g. OSX apps).
 
+See also [Targone](https://github.com/marcoconti83/targone/), A Swift command line argument parser and automatic usage description generator inspired by Python Argparse.
+
 ## API design
 
 Morione public API is designed keeping in mind ease of use within a script.
