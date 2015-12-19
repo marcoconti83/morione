@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5405CF051C25DB36008C3605 /* String+OutputParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5405CF041C25DB36008C3605 /* String+OutputParsing.swift */; };
+		5405CF071C25DB8E008C3605 /* StringOutputParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */; };
+		541EABB11C256FF3000DE3B2 /* Morione.h in Headers */ = {isa = PBXBuildFile; fileRef = 541EABB01C256FF3000DE3B2 /* Morione.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		541EABB81C256FF3000DE3B2 /* Morione.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541EABAD1C256FF3000DE3B2 /* Morione.framework */; };
+		541EABCB1C257415000DE3B2 /* Subprocess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541EABCA1C257415000DE3B2 /* Subprocess.swift */; };
+		541EABCD1C2577DF000DE3B2 /* SubprocessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541EABCC1C2577DF000DE3B2 /* SubprocessTests.swift */; };
+		541EABD01C257FC3000DE3B2 /* MCMExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 541EABCE1C257FC3000DE3B2 /* MCMExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		541EABD11C257FC3000DE3B2 /* MCMExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 541EABCF1C257FC3000DE3B2 /* MCMExceptionHandler.m */; };
+		541EABD41C258A49000DE3B2 /* file.txt in Resources */ = {isa = PBXBuildFile; fileRef = 541EABD31C258A49000DE3B2 /* file.txt */; };
+		541EABDA1C258FE0000DE3B2 /* ExecutionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */; };
+		541EABDC1C259149000DE3B2 /* ExecutionResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		541EABB91C256FF3000DE3B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 541EABA41C256FF3000DE3B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 541EABAC1C256FF3000DE3B2;
+			remoteInfo = Morione;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5405CF041C25DB36008C3605 /* String+OutputParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+OutputParsing.swift"; sourceTree = "<group>"; };
+		5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringOutputParsingTests.swift; sourceTree = "<group>"; };
+		541EABAD1C256FF3000DE3B2 /* Morione.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Morione.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		541EABB01C256FF3000DE3B2 /* Morione.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Morione.h; sourceTree = "<group>"; };
+		541EABB21C256FF3000DE3B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		541EABB71C256FF3000DE3B2 /* MorioneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MorioneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		541EABBE1C256FF3000DE3B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		541EABC71C2570AC000DE3B2 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		541EABC91C2570C5000DE3B2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		541EABCA1C257415000DE3B2 /* Subprocess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subprocess.swift; sourceTree = "<group>"; };
+		541EABCC1C2577DF000DE3B2 /* SubprocessTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubprocessTests.swift; sourceTree = "<group>"; };
+		541EABCE1C257FC3000DE3B2 /* MCMExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMExceptionHandler.h; sourceTree = "<group>"; };
+		541EABCF1C257FC3000DE3B2 /* MCMExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMExceptionHandler.m; sourceTree = "<group>"; };
+		541EABD31C258A49000DE3B2 /* file.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = file.txt; sourceTree = "<group>"; };
+		541EABD61C258BE3000DE3B2 /* localusage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localusage.swift; sourceTree = "<group>"; };
+		541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionResult.swift; sourceTree = "<group>"; };
+		541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionResultTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		541EABA91C256FF3000DE3B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		541EABB41C256FF3000DE3B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				541EABB81C256FF3000DE3B2 /* Morione.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		541EABA31C256FF3000DE3B2 = {
+			isa = PBXGroup;
+			children = (
+				541EABC91C2570C5000DE3B2 /* README.md */,
+				541EABC71C2570AC000DE3B2 /* LICENSE */,
+				541EABAF1C256FF3000DE3B2 /* Sources */,
+				541EABBB1C256FF3000DE3B2 /* Tests */,
+				541EABD51C258BB8000DE3B2 /* Examples */,
+				541EABAE1C256FF3000DE3B2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		541EABAE1C256FF3000DE3B2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				541EABAD1C256FF3000DE3B2 /* Morione.framework */,
+				541EABB71C256FF3000DE3B2 /* MorioneTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		541EABAF1C256FF3000DE3B2 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				541EABB01C256FF3000DE3B2 /* Morione.h */,
+				541EABB21C256FF3000DE3B2 /* Info.plist */,
+				541EABCA1C257415000DE3B2 /* Subprocess.swift */,
+				541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */,
+				541EABCE1C257FC3000DE3B2 /* MCMExceptionHandler.h */,
+				541EABCF1C257FC3000DE3B2 /* MCMExceptionHandler.m */,
+				5405CF041C25DB36008C3605 /* String+OutputParsing.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		541EABBB1C256FF3000DE3B2 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				541EABD21C258A36000DE3B2 /* Resources */,
+				541EABCC1C2577DF000DE3B2 /* SubprocessTests.swift */,
+				541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */,
+				5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */,
+				541EABBE1C256FF3000DE3B2 /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		541EABD21C258A36000DE3B2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				541EABD31C258A49000DE3B2 /* file.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		541EABD51C258BB8000DE3B2 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				541EABD61C258BE3000DE3B2 /* localusage.swift */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		541EABAA1C256FF3000DE3B2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				541EABB11C256FF3000DE3B2 /* Morione.h in Headers */,
+				541EABD01C257FC3000DE3B2 /* MCMExceptionHandler.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		541EABAC1C256FF3000DE3B2 /* Morione */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 541EABC11C256FF3000DE3B2 /* Build configuration list for PBXNativeTarget "Morione" */;
+			buildPhases = (
+				541EABA81C256FF3000DE3B2 /* Sources */,
+				541EABA91C256FF3000DE3B2 /* Frameworks */,
+				541EABAA1C256FF3000DE3B2 /* Headers */,
+				541EABAB1C256FF3000DE3B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Morione;
+			productName = Morione;
+			productReference = 541EABAD1C256FF3000DE3B2 /* Morione.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		541EABB61C256FF3000DE3B2 /* MorioneTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 541EABC41C256FF3000DE3B2 /* Build configuration list for PBXNativeTarget "MorioneTests" */;
+			buildPhases = (
+				541EABB31C256FF3000DE3B2 /* Sources */,
+				541EABB41C256FF3000DE3B2 /* Frameworks */,
+				541EABB51C256FF3000DE3B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				541EABBA1C256FF3000DE3B2 /* PBXTargetDependency */,
+			);
+			name = MorioneTests;
+			productName = MorioneTests;
+			productReference = 541EABB71C256FF3000DE3B2 /* MorioneTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		541EABA41C256FF3000DE3B2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = com.marco83;
+				TargetAttributes = {
+					541EABAC1C256FF3000DE3B2 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					541EABB61C256FF3000DE3B2 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 541EABA71C256FF3000DE3B2 /* Build configuration list for PBXProject "Morione" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 541EABA31C256FF3000DE3B2;
+			productRefGroup = 541EABAE1C256FF3000DE3B2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				541EABAC1C256FF3000DE3B2 /* Morione */,
+				541EABB61C256FF3000DE3B2 /* MorioneTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		541EABAB1C256FF3000DE3B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		541EABB51C256FF3000DE3B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				541EABD41C258A49000DE3B2 /* file.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		541EABA81C256FF3000DE3B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5405CF051C25DB36008C3605 /* String+OutputParsing.swift in Sources */,
+				541EABD11C257FC3000DE3B2 /* MCMExceptionHandler.m in Sources */,
+				541EABDA1C258FE0000DE3B2 /* ExecutionResult.swift in Sources */,
+				541EABCB1C257415000DE3B2 /* Subprocess.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		541EABB31C256FF3000DE3B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				541EABDC1C259149000DE3B2 /* ExecutionResultTests.swift in Sources */,
+				5405CF071C25DB8E008C3605 /* StringOutputParsingTests.swift in Sources */,
+				541EABCD1C2577DF000DE3B2 /* SubprocessTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		541EABBA1C256FF3000DE3B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 541EABAC1C256FF3000DE3B2 /* Morione */;
+			targetProxy = 541EABB91C256FF3000DE3B2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		541EABBF1C256FF3000DE3B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		541EABC01C256FF3000DE3B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		541EABC21C256FF3000DE3B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.Morione;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		541EABC31C256FF3000DE3B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.Morione;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		541EABC51C256FF3000DE3B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.MorioneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		541EABC61C256FF3000DE3B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.MorioneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		541EABA71C256FF3000DE3B2 /* Build configuration list for PBXProject "Morione" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				541EABBF1C256FF3000DE3B2 /* Debug */,
+				541EABC01C256FF3000DE3B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		541EABC11C256FF3000DE3B2 /* Build configuration list for PBXNativeTarget "Morione" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				541EABC21C256FF3000DE3B2 /* Debug */,
+				541EABC31C256FF3000DE3B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		541EABC41C256FF3000DE3B2 /* Build configuration list for PBXNativeTarget "MorioneTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				541EABC51C256FF3000DE3B2 /* Debug */,
+				541EABC61C256FF3000DE3B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 541EABA41C256FF3000DE3B2 /* Project object */;
+}
