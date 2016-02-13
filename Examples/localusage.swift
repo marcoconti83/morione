@@ -27,8 +27,7 @@
 
 import Morione
 
-let diskFree = Subprocess("/bin/df", "-h", "-l")
-let lines = diskFree.runOutput()!.outputLines
+let lines = Subprocess.outputLines("/bin/df", "-h", "-l")
 
 for line in lines[1..<lines.count] {
     let tokens = line.splitByWhitespace()

@@ -175,3 +175,43 @@ extension SubprocessTests {
     }
 }
 
+
+// MARK: - Compact API
+extension SubprocessTests {
+    
+    func testThatItReturnsTheOutputOfEchoWithCompactAPI() {
+        
+        // when
+        let result = Subprocess.output("/bin/echo", "Foo\no")
+        
+        // then
+        XCTAssertEqual(result, "Foo\no\n")
+    }
+    
+    func testThatItReturnsTheOutputLinesOfEchoWithCompactAPI() {
+        
+        // when
+        let result = Subprocess.outputLines("/bin/echo", "Foo\no")
+        
+        // then
+        XCTAssertEqual(result, ["Foo","o"])
+    }
+    
+    func testThatItReturnsTheExitStatusWithCompactAPI() {
+        
+        // when
+        let result = Subprocess.run("/bin/echo", "Foo\no")
+        
+        // then
+        XCTAssertEqual(result, 0)
+    }
+
+    func testThatItReturnsTheExitStatusOnErrorWithCompactAPI() {
+        
+        // when
+        let result = Subprocess.run("/bin/ls", self.nonExistingFileName())
+        
+        // then
+        XCTAssertNotEqual(result, 0)
+    }
+}
