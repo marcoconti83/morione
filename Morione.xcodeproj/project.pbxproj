@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54001A0A1C6F26410082207D /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54001A091C6F26410082207D /* Error.swift */; };
 		5405CF051C25DB36008C3605 /* String+OutputParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5405CF041C25DB36008C3605 /* String+OutputParsing.swift */; };
 		5405CF071C25DB8E008C3605 /* StringOutputParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */; };
 		541EABB11C256FF3000DE3B2 /* Morione.h in Headers */ = {isa = PBXBuildFile; fileRef = 541EABB01C256FF3000DE3B2 /* Morione.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		54001A091C6F26410082207D /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		5405CF041C25DB36008C3605 /* String+OutputParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+OutputParsing.swift"; sourceTree = "<group>"; };
 		5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringOutputParsingTests.swift; sourceTree = "<group>"; };
 		541EABAD1C256FF3000DE3B2 /* Morione.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Morione.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 				541EABB01C256FF3000DE3B2 /* Morione.h */,
 				541EABB21C256FF3000DE3B2 /* Info.plist */,
 				541EABCA1C257415000DE3B2 /* Subprocess.swift */,
+				54001A091C6F26410082207D /* Error.swift */,
 				541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */,
 				541EABCE1C257FC3000DE3B2 /* MCMExceptionHandler.h */,
 				541EABCF1C257FC3000DE3B2 /* MCMExceptionHandler.m */,
@@ -245,6 +248,7 @@
 				5405CF051C25DB36008C3605 /* String+OutputParsing.swift in Sources */,
 				541EABD11C257FC3000DE3B2 /* MCMExceptionHandler.m in Sources */,
 				541EABDA1C258FE0000DE3B2 /* ExecutionResult.swift in Sources */,
+				54001A0A1C6F26410082207D /* Error.swift in Sources */,
 				541EABCB1C257415000DE3B2 /* Subprocess.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
