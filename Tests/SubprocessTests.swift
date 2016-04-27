@@ -214,4 +214,12 @@ extension SubprocessTests {
         // then
         XCTAssertNotEqual(result, 0)
     }
+    
+    func testThatItSuccessfullyRunOrDie() {
+        
+        // when
+        Subprocess.runOrDie("/bin/ls")
+        
+        // then: not crashing
+    }
 }
