@@ -183,4 +183,22 @@ extension Subprocess {
             return result.status
     }
 
+    /**
+     Executes a subprocess and wait for completion. If there is an error in creating the task, or if the tasks returns an exit status other than 0,
+     it immediately exits the process with status 1
+     - note: in case there is any error in executing the process or creating the task, or if the task exists with a exit status other than 0, it will halt execution. Use
+     the constructor and `run` method for a more graceful error handling
+     */
+    public static func runOrDie(
+        executablePath: String,
+        _ arguments: String...,
+        workingDirectory: String = ".") {
+        
+        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).run() else {
+            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
+        }
+        if result != 0 {
+            Error.die("Process \(executablePath) returned non-zero status")
+        }
+    }
 }
