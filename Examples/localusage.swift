@@ -25,6 +25,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+// INSTRUCTIONS: 
+// before running this script, make sure to run
+//      carthage build --no-skip-current
+// from the project folder. Then you can invoke it **from the project folder** using
+//  ./Examples/<script name>.swift
+//
+
 import Morione
 
 let lines = Subprocess.outputLines("/bin/df", "-h", "-l")
