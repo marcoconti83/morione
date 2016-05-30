@@ -138,7 +138,8 @@ extension Subprocess {
             }
             if result.status != 0 {
                 let errorLines = result.errors == "" ? "" : "\n" + result.errors
-                Error.die("Process \(executablePath) returned non-zero status", errorLines)
+                Error.die("Process \(executablePath) returned non-zero status", errorLines, "\n",
+                    "with arguments: \(arguments.joinWithSeparator(" "))")
             }
             return result.output
     }
@@ -160,7 +161,8 @@ extension Subprocess {
             }
             if result.status != 0 {
                 let errorLines = result.errors == "" ? "" : "\n" + result.errors
-                Error.die("Process \(executablePath) returned non-zero status", errorLines)
+                Error.die("Process \(executablePath) returned non-zero status", errorLines, "\n",
+                          "with arguments: \(arguments.joinWithSeparator(" "))")
             }
             return result.outputLines
     }
@@ -198,7 +200,8 @@ extension Subprocess {
             Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
         }
         if result != 0 {
-            Error.die("Process \(executablePath) returned non-zero status")
+            Error.die("Process \(executablePath) returned non-zero status\n",
+                "with arguments: \(arguments.joinWithSeparator(" "))")
         }
     }
 }
