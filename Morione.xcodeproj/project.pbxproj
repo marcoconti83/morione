@@ -10,6 +10,7 @@
 		54001A0A1C6F26410082207D /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54001A091C6F26410082207D /* Error.swift */; };
 		5405CF051C25DB36008C3605 /* String+OutputParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5405CF041C25DB36008C3605 /* String+OutputParsing.swift */; };
 		5405CF071C25DB8E008C3605 /* StringOutputParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */; };
+		541B09F61D009CEF00FA117D /* wcarg.sh in Resources */ = {isa = PBXBuildFile; fileRef = 541B09F51D009AFF00FA117D /* wcarg.sh */; };
 		541EABB11C256FF3000DE3B2 /* Morione.h in Headers */ = {isa = PBXBuildFile; fileRef = 541EABB01C256FF3000DE3B2 /* Morione.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		541EABB81C256FF3000DE3B2 /* Morione.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541EABAD1C256FF3000DE3B2 /* Morione.framework */; };
 		541EABCB1C257415000DE3B2 /* Subprocess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541EABCA1C257415000DE3B2 /* Subprocess.swift */; };
@@ -35,6 +36,7 @@
 		54001A091C6F26410082207D /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		5405CF041C25DB36008C3605 /* String+OutputParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+OutputParsing.swift"; sourceTree = "<group>"; };
 		5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringOutputParsingTests.swift; sourceTree = "<group>"; };
+		541B09F51D009AFF00FA117D /* wcarg.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = wcarg.sh; sourceTree = "<group>"; };
 		541EABAD1C256FF3000DE3B2 /* Morione.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Morione.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		541EABB01C256FF3000DE3B2 /* Morione.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Morione.h; sourceTree = "<group>"; };
 		541EABB21C256FF3000DE3B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				541EABD31C258A49000DE3B2 /* file.txt */,
+				541B09F51D009AFF00FA117D /* wcarg.sh */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				541EABD41C258A49000DE3B2 /* file.txt in Resources */,
+				541B09F61D009CEF00FA117D /* wcarg.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
