@@ -50,6 +50,7 @@
 		541EABD61C258BE3000DE3B2 /* localusage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localusage.swift; sourceTree = "<group>"; };
 		541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionResult.swift; sourceTree = "<group>"; };
 		541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionResultTests.swift; sourceTree = "<group>"; };
+		543955621D3D1EEA00E00DEC /* version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = version.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +77,7 @@
 			children = (
 				541EABC91C2570C5000DE3B2 /* README.md */,
 				541EABC71C2570AC000DE3B2 /* LICENSE */,
+				543955601D3D1EEA00E00DEC /* Resources */,
 				541EABAF1C256FF3000DE3B2 /* Sources */,
 				541EABBB1C256FF3000DE3B2 /* Tests */,
 				541EABD51C258BB8000DE3B2 /* Examples */,
@@ -133,6 +135,22 @@
 				541EABD61C258BE3000DE3B2 /* localusage.swift */,
 			);
 			path = Examples;
+			sourceTree = "<group>";
+		};
+		543955601D3D1EEA00E00DEC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				543955611D3D1EEA00E00DEC /* Configurations */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		543955611D3D1EEA00E00DEC /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				543955621D3D1EEA00E00DEC /* version.xcconfig */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +294,7 @@
 /* Begin XCBuildConfiguration section */
 		541EABBF1C256FF3000DE3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 543955621D3D1EEA00E00DEC /* version.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -323,6 +342,7 @@
 		};
 		541EABC01C256FF3000DE3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 543955621D3D1EEA00E00DEC /* version.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
