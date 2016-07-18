@@ -1,0 +1,7 @@
+framework=Morione
+gitflow=false
+organization=marcoconti83
+repository=morione
+osx=true
+release-name-format={ADJECTIVE} {ANIMAL}
+
