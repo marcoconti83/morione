@@ -179,10 +179,10 @@ extension Subprocess {
         _ arguments: String...,
         workingDirectory: String = ".") -> Int32 {
             
-            guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).runOutput() else {
+            guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).run() else {
                 Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
             }
-            return result.status
+            return result
     }
 
     /**
