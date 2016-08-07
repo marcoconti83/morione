@@ -112,7 +112,7 @@ extension SubprocessTests {
         // then
         XCTAssertEqual(result!.status, 1)
         XCTAssertEqual(result!.output, "")
-        XCTAssertEqual(result!.errors, "ls: \(nonExistingFileName): No such file or directory\n")
+        XCTAssertEqual(result!.errors, "ls: \(noFile): No such file or directory\n")
     }
     
     func testThatItReturnNilOutputIfTheExecutableDoesNotExist() {
