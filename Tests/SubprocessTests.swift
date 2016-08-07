@@ -15,27 +15,6 @@ class SubprocessTests: XCTestCase {
 // MARK: - Return code
 extension SubprocessTests {
     
-    /// Returns a file path that does not to exists at the moment.
-    /// It is not guaranteed that it won't exists in future, but the chances
-    /// are extremely low
-    private func nonExistingFileName() -> String {
-        while(true) {
-            let uuidString = "/\(NSUUID().hash)/\(NSUUID().hash)"
-            if !NSFileManager.defaultManager().fileExistsAtPath(uuidString) {
-                return uuidString
-            }
-        }
-    }
-    
-    /// Returns a file path to a file that exists, but it's not executable
-    /// It is not guaranteed that it won't be executable in future, but it's unlikely
-    private func nonExecutableFileName() -> String {
-        let nonExecutable = NSBundle(forClass: SubprocessTests.self).pathForResource("file", ofType: "txt")
-        assert(NSFileManager.defaultManager().fileExistsAtPath(nonExecutable!))
-        assert(!NSFileManager.defaultManager().isExecutableFileAtPath(nonExecutable!))
-        return nonExecutable!
-    }
-    
     func testThatItReturnsTheSuccessfulExitCodeOfEcho() {
         
         // given
@@ -51,8 +30,8 @@ extension SubprocessTests {
     func testThatItReturnsTheInsuccessfulExitCodeOfLS() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess("/bin/ls", nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess("/bin/ls", noFile)
         
         // when
         let result = sut.run()
@@ -64,8 +43,8 @@ extension SubprocessTests {
     func testThatItReturnNilIfTheExecutableDoesNotExist() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess(nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess(noFile)
         
         // when
         let result = sut.run()
@@ -77,7 +56,7 @@ extension SubprocessTests {
     func testThatItReturnNilIfTheExecutableIsNotExecutable() {
         
         // given
-        let nonExecutable = self.nonExecutableFileName()
+        let nonExecutable = nonExecutableFileName()
         let sut = Subprocess(nonExecutable)
         
         // when
@@ -108,8 +87,8 @@ extension SubprocessTests {
     func testThatItReturnsTheErrorOutputOfLS() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess("/bin/ls", nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess("/bin/ls", noFile)
         
         // when
         let result = sut.runOutput()
@@ -123,8 +102,8 @@ extension SubprocessTests {
     func testThatItReturnNilOutputIfTheExecutableDoesNotExist() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess(nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess(noFile )
         
         // when
         let result = sut.runOutput()
@@ -136,7 +115,7 @@ extension SubprocessTests {
     func testThatItReturnNilOutputIfTheExecutableIsNotExecutable() {
         
         // given
-        let nonExecutable = self.nonExecutableFileName()
+        let nonExecutable = nonExecutableFileName()
         let sut = Subprocess(nonExecutable)
         
         // when
@@ -165,7 +144,7 @@ extension SubprocessTests {
     func testThatItReturnsNilIfTheWorkingDirectoryDoesNotExist() {
         
         // given
-        let nonExistingPath = self.nonExistingFileName()
+        let nonExistingPath = nonExistingFileName()
         
         // when
         let sut = Subprocess("/bin/pwd", workingDirectory: nonExistingPath)
@@ -209,7 +188,7 @@ extension SubprocessTests {
     func testThatItReturnsTheExitStatusOnErrorWithCompactAPI() {
         
         // when
-        let result = Subprocess.run("/bin/ls", self.nonExistingFileName())
+        let result = Subprocess.run("/bin/ls", nonExistingFileName())
         
         // then
         XCTAssertNotEqual(result, 0)

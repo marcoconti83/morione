@@ -11,14 +11,27 @@ import Foundation
 
 public struct ExecutionResult {
     
-    /// The return status of the executable
-    public let status: Int32
+    /// Whether the output was captured
+    public let didCaptureOutput : Bool
     
-    /// The output of the executable. Empty string if no output was produced
+    /// The return status of the last subprocess
+    public var status: Int32 {
+        return pipelineStatuses.last!
+    }
+    
+    /// Return status of all subprocesses in the pipeline
+    public let pipelineStatuses : [Int32]
+    
+    /// The output of the subprocess. Empty string if no output was produced or not captured
     public let output: String
     
-    /// The error output of the executable. Empty string if no error output was produced
-    public let errors : String
+    /// The error output of the last subprocess. Empty string if no error output was produced or not captured
+    public var errors : String {
+        return pipelineErrors?.last ?? ""
+    }
+    
+    /// The error output of all subprocesses in the pipeline. Empty string if no error output was produced or not captured
+    public let pipelineErrors : [String]?
     
     /// The output, split by newline
     /// - SeeAlso: `output`
@@ -32,10 +45,19 @@ public struct ExecutionResult {
         return self.errors.splitByNewline()
     }
     
-    public init(status: Int32, output: String, errors: String)
-    {
-        self.status = status
+    /// An execution result where no output was captured
+    init(pipelineStatuses: [Int32]) {
+        self.pipelineStatuses = pipelineStatuses
+        self.didCaptureOutput = false
+        self.pipelineErrors = nil
+        self.output = ""
+    }
+    
+    /// An execution result where output was captured
+    init(pipelineStatuses: [Int32], pipelineErrors : [String], output : String) {
+        self.pipelineStatuses = pipelineStatuses
+        self.pipelineErrors = pipelineErrors
         self.output = output
-        self.errors = errors
+        self.didCaptureOutput = true
     }
 }
