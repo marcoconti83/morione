@@ -13,7 +13,7 @@ To achieve this, errors in executing subprocess are printed on screen instead of
 
 The API is documented in the code and tests.
 
-There is a full-fledged API version (returning Optionals) and a compact API version. The compact API will make a lot of assumption and just assert if any of these assumption is not fulfilled. This is intended to be used in scripts where it's desirable to abort the script with an automatically generated error message in case of error. We are aware that this makes it hard to write unit tests, but it contributes to create simple scripts that are concise and to the point. Compare `Subprocess.output("/bin/df", "-h", "-l")` (compact API) with `Subprocess("/bin/df", "-h", "-l").runOutput()!.output`.
+There is a full-fledged API version (returning Optionals) and a compact API version. The compact API will make a lot of assumption and just assert if any of these assumption is not fulfilled. This is intended to be used in scripts where it's desirable to abort the script with an automatically generated error message in case of error. We are aware that this makes it hard to write unit tests, but it contributes to create simple scripts that are concise and to the point. Compare `Subprocess.output("/bin/df", "-h", "-l")` (compact API) with `Subprocess("/bin/df", "-h", "-l").execute()!.output`.
 
 
 A simple example Swift script integration can be found in the [Example](https://github.com/marcoconti83/morione/tree/master/Examples) folder.
@@ -29,7 +29,7 @@ print lines.last
 
 # How to Use
 
-## Execution 
+## API 
 
 - Execute a command, abort current process on failure:
 
@@ -50,7 +50,7 @@ print lines.last
 - Execute a command, get the output, the error output on `stdErr` and the termination status:
 
 ```
-guard let result = Subprocess("do.sh").runOutput() else { ... } // will fail if "do.sh" does not exist
+guard let result = Subprocess("do.sh").execute(true) else { ... } // will fail if "do.sh" does not exist
 let status = result.status
 let error = result.error
 let output = result.output
@@ -60,7 +60,7 @@ let output = result.output
 
 ```
 let pipeline = Subprocess("/bin/ls","-l","folder") | Subprocess("/usr/bin/grep", "file-") | Subprocess("/usr/bin/sort","-r")
-let output = pipeline.runOutput()!.output
+let output = pipeline.output()
 ```
 
 ## How to integrate in your script/application

@@ -33,14 +33,14 @@ extension Subprocess {
      it immediately exits the process with status 1
      - returns: the output as a String
      - note: in case there is any error in executing the process or creating the task, it will halt execution. Use
-     the constructor and `runOutput` method for a more graceful error handling
+     the constructor and `output` instance method for a more graceful error handling
      */
     public static func output(
         executablePath: String,
         _ arguments: String...,
         workingDirectory: String = ".") -> String {
         
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).runOutput() else {
+        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).execute(true) else {
             Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
         }
         if result.status != 0 {
@@ -52,18 +52,36 @@ extension Subprocess {
     }
     
     /**
+     Executes a subprocess and wait for completion, returning the execution result. If there is an error in creating the task,
+     it immediately exits the process with status 1
+     - returns: the execution result
+     - note: in case there is any error in executing the process or creating the task, it will halt execution. Use
+     the constructor and `execute` instance method for a more graceful error handling
+     */
+    public static func execute(
+        executablePath: String,
+        _ arguments: String...,
+        workingDirectory: String = ".") -> ExecutionResult {
+        
+        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).execute(true) else {
+            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
+        }
+        return result
+    }
+    
+    /**
      Executes a subprocess and wait for completion, returning the output as an array of lines. If there is an error
      in creating or executing the task, it immediately exits the process with status 1
      - returns: the output as a String
      - note: in case there is any error in executing the process or creating the task, it will halt execution. Use
-     the constructor and `runOutput` method for a more graceful error handling
+     the constructor and `output` instance method for a more graceful error handling
      */
     public static func outputLines(
         executablePath: String,
         _ arguments: String...,
         workingDirectory: String = ".") -> [String] {
         
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).runOutput() else {
+        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).execute(true) else {
             Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
         }
         if result.status != 0 {
@@ -79,7 +97,7 @@ extension Subprocess {
      it immediately exits the process with status 1
      - returns: the output as a String
      - note: in case there is any error in launching the process or creating the task, it will halt execution. Use
-     the constructor and `run` method for a more graceful error handling
+     the constructor and the `run` instance method for a more graceful error handling
      */
     public static func run(
         executablePath: String,
@@ -93,10 +111,10 @@ extension Subprocess {
     }
     
     /**
-     Executes a subprocess and wait for completion. If there is an error in creating the task, or if the tasks returns an exit status other than 0,
-     it immediately exits the process with status 1
+     Executes a subprocess and wait for completion. If there is an error in creating the task, or if the tasks 
+     returns an exit status other than 0, it immediately exits the process with status 1
      - note: in case there is any error in launching the process or creating the task, or if the task exists with a exit status other than 0, it will halt execution. Use
-     the constructor and `run` method for a more graceful error handling
+     the constructor and `run` instance method for a more graceful error handling
      */
     public static func runOrDie(
         executablePath: String,

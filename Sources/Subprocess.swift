@@ -89,7 +89,7 @@ extension Subprocess {
 
     /**
      Executes the subprocess and wait for completition, returning the exit status
-     - returns: the execution result, including the output, or nil if it was not possible to execute the process
+     - returns: the termination status, or nil if it was not possible to execute the process
      */
     public func run() -> Int32? {
         return self.execute(false)?.status
@@ -97,11 +97,19 @@ extension Subprocess {
     
     /**
      Executes the subprocess and wait for completion, returning the output
-     - returns: the execution result, including the output, or nil if it was not possible to execute the process
+     - returns: the output of the process, or nil if it was not possible to execute the process
      - warning: the entire output will be stored in a String in memory
      */
-    public func runOutput() -> ExecutionResult? {
-        return self.execute(true)
+    public func output() -> String? {
+        return self.execute(true)?.output
+    }
+    
+    /**
+     Executes the subprocess and wait for completition, returning the exit status
+     - returns: the execution result, or nil if it was not possible to execute the process
+     */
+    public func execute(captureOutput: Bool = false) -> ExecutionResult? {
+        return buildPipeline(captureOutput).run()
     }
 }
 
@@ -159,10 +167,5 @@ extension Subprocess {
             return downstreamPipeline.addToHead(task)
         }
         return TaskPipeline(task: task, captureOutput: captureOutput)
-    }
-    
-    /// Executes the pipeline and returns the return status of the last command of the pipeline
-    private func execute(captureOutput: Bool) -> ExecutionResult? {
-        return buildPipeline(captureOutput).run()
     }
 }

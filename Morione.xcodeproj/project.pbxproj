@@ -56,6 +56,7 @@
 		541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionResultTests.swift; sourceTree = "<group>"; };
 		543955621D3D1EEA00E00DEC /* version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = version.xcconfig; sourceTree = "<group>"; };
 		544B9F7F1D57173E00CF8D5D /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		544B9F811D57497500CF8D5D /* copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copy.swift; sourceTree = "<group>"; };
 		549BB53F1D50EC01004AB191 /* Subprocess+CompactAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subprocess+CompactAPI.swift"; sourceTree = "<group>"; };
 		549BB5411D50ED80004AB191 /* TaskPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPipeline.swift; sourceTree = "<group>"; };
 		549BB5431D50EEF1004AB191 /* PipingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipingTests.swift; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 		541EABD51C258BB8000DE3B2 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				544B9F811D57497500CF8D5D /* copy.swift */,
 				541EABD61C258BE3000DE3B2 /* localusage.swift */,
 			);
 			path = Examples;

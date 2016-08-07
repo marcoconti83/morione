@@ -37,7 +37,7 @@ class PipingTests : XCTestCase {
         
         // when
         let piped = procLs | procWc
-        let output = piped.runOutput()!.output
+        let output = piped.output()!
         
         // then
         XCTAssertEqual(output, "       0       6      26\n")
@@ -54,7 +54,7 @@ class PipingTests : XCTestCase {
         
         // when
         let piped = procLs | procSed1 | procSed2 | procSed3
-        let output = piped.runOutput()!.output
+        let output = piped.output()!
         
         // then
         XCTAssertEqual(output, "This text is short\n")
@@ -69,7 +69,7 @@ class PipingTests : XCTestCase {
         
         // when
         let piped = proc1 | proc2 | proc3
-        let output = piped.runOutput()!.output
+        let output = piped.output()!
         
         // then 
         XCTAssertEqual(output, "c\n")
@@ -83,7 +83,7 @@ class PipingTests : XCTestCase {
         
         // when
         let piped = proc1 | proc2 | proc3
-        let result = piped.runOutput()
+        let result = piped.output()
         
         // then
         XCTAssertNil(result)
@@ -98,7 +98,7 @@ class PipingTests : XCTestCase {
         
         // when
         let piped = proc1 | proc2 | proc3 | proc4
-        let statuses = piped.runOutput()!.pipelineStatuses
+        let statuses = piped.execute()!.pipelineStatuses
         
         // then
         XCTAssertEqual(statuses, [0,1,0,1])
@@ -115,7 +115,7 @@ class PipingTests : XCTestCase {
         
         // when
         let piped = proc1 | proc2 | proc3 | proc4
-        let errors = piped.runOutput()!.pipelineErrors!
+        let errors = piped.execute(true)!.pipelineErrors!
         
         // then
         XCTAssertEqual(errors[0], "")

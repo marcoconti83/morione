@@ -92,7 +92,7 @@ extension SubprocessTests {
         let sut = Subprocess("/bin/echo", "Foo\no")
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute(true)
         
         // then
         XCTAssertEqual(result!.status, 0)
@@ -107,7 +107,7 @@ extension SubprocessTests {
         let sut = Subprocess("/bin/ls", noFile)
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute(true)
         
         // then
         XCTAssertEqual(result!.status, 1)
@@ -122,7 +122,7 @@ extension SubprocessTests {
         let sut = Subprocess(noFile )
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute()
         
         // then
         XCTAssertNil(result)
@@ -135,7 +135,7 @@ extension SubprocessTests {
         let sut = Subprocess(nonExecutable)
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute()
         
         // then
         XCTAssertNil(result)
@@ -154,7 +154,7 @@ extension SubprocessTests {
         let sut = Subprocess("/bin/pwd", workingDirectory: expectedDirectory)
         
         // then
-        XCTAssertEqual(sut.runOutput()!.output, expectedDirectory+"\n")
+        XCTAssertEqual(sut.output(), expectedDirectory+"\n")
     }
     
     func testThatItReturnsNilIfTheWorkingDirectoryDoesNotExist() {
@@ -166,7 +166,7 @@ extension SubprocessTests {
         let sut = Subprocess("/bin/pwd", workingDirectory: nonExistingPath)
 
         // then
-        XCTAssertNil(sut.runOutput())
+        XCTAssertNil(sut.output())
     }
 }
 
