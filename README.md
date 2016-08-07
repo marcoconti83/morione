@@ -23,11 +23,47 @@ A simple example Swift script integration can be found in the [Example](https://
 To print the last line of the output of `/bin/df -h -l` in your script, use:
 
 ```
-let diskFree = Subprocess("/bin/df", "-h", "-l").runOutput()!.outputLines
+let diskFree = Subprocess.output("/bin/df", "-h", "-l")
 print lines.last
 ```
 
-## How to use Morione in your script
+# How to Use
+
+## Execution 
+
+- Execute a command, abort current process on failure:
+
+```Subprocess.runOrDie("/bin/rm", "shopping-list.txt")```
+
+- Execute a command, get the termination status:
+
+```let status = Subprocess.run("/usr/bin/grep","bread","shopping-list.txt")```
+
+- Execute a command, get the output:
+
+```let output = Subprocess.run("/bin/cat","shopping-list.txt")```
+
+- Execute a command, get the output as an array of strings, one element per output line:
+
+```let lines = Subprocess.run("/bin/ls","folder")```
+
+- Execute a command, get the output, the error output on `stdErr` and the termination status:
+
+```
+guard let result = Subprocess("do.sh").runOutput() else { ... } // will fail if "do.sh" does not exist
+let status = result.status
+let error = result.error
+let output = result.output
+```
+
+- Pipe commands, get the final output:
+
+```
+let pipeline = Subprocess("/bin/ls","-l","folder") | Subprocess("/usr/bin/grep", "file-") | Subprocess("/usr/bin/sort","-r")
+let output = pipeline.runOutput()!.output
+```
+
+## How to integrate in your script/application
 
 Just add ```import Morione``` to your script
 
