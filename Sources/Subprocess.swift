@@ -169,3 +169,18 @@ extension Subprocess {
         return TaskPipeline(task: task, captureOutput: captureOutput)
     }
 }
+
+// MARK: - Description
+extension Subprocess  : CustomStringConvertible {
+    
+    public var description : String {
+        return self.executablePath
+            + (self.arguments.count > 0
+                ? " " + self.arguments
+                .map { $0.stringByReplacingOccurrencesOfString(" ", withString: "\\ ") }
+                .joinWithSeparator(" ")
+                : ""
+            )
+            + (self.pipeDestination != nil ? " | " + self.pipeDestination!.description : "" )
+    }
+}

@@ -218,3 +218,51 @@ extension SubprocessTests {
         // then: not crashing
     }
 }
+
+// MARK: - Description
+extension SubprocessTests {
+    
+    func testThatItDescribesExecutable() {
+        
+        // given
+        let path = "/bin/ls"
+        let sut = Subprocess(path)
+        
+        // then
+        XCTAssertEqual(sut.description, path)
+    }
+    
+    func testThatItDescribesExecutableAndArguments() {
+        
+        // given
+        let path = "/bin/ls"
+        let sut = Subprocess(path, "-l", "foo")
+        
+        // then
+        XCTAssertEqual(sut.description, "\(path) -l foo")
+    }
+    
+    func testThatItDescribesExecutableAndArgumentsWithSpace() {
+        
+        // given
+        let path = "/bin/ls"
+        let sut = Subprocess(path, "-l", "My Documents")
+        
+        // then
+        XCTAssertEqual(sut.description, "\(path) -l My\\ Documents")
+    }
+    
+    func testThatItDescribesPipe() {
+        
+        // given
+        let sut1 = Subprocess("/bin/echo", "That's it")
+        let sut2 = Subprocess("/usr/bin/grep", "it")
+        let sut3 = Subprocess("/usr/bin/sed", "s/it/not it/")
+        
+        // when
+        let sut = sut1 | sut2 | sut3
+        
+        // then
+        XCTAssertEqual(sut.description, "\(sut1.description) | \(sut2.description) | \(sut3.description)")
+    }
+}

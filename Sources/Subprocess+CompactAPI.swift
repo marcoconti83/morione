@@ -40,13 +40,13 @@ extension Subprocess {
         _ arguments: String...,
         workingDirectory: String = ".") -> String {
         
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).execute(true) else {
-            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
+        let process = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
+        guard let result = process.execute(true) else {
+            Error.die("Can't execute \"\(process)\"")
         }
         if result.status != 0 {
             let errorLines = result.errors == "" ? "" : "\n" + result.errors
-            Error.die("Process \(executablePath) returned non-zero status", errorLines, "\n",
-                      "with arguments: \(arguments.joinWithSeparator(" "))")
+            Error.die("Process \"\(process)\" returned status \(result.status)", errorLines)
         }
         return result.output
     }
@@ -63,8 +63,9 @@ extension Subprocess {
         _ arguments: String...,
         workingDirectory: String = ".") -> ExecutionResult {
         
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).execute(true) else {
-            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
+        let process = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
+        guard let result = process.execute(true) else {
+            Error.die("Can't execute \"\(process)\"")
         }
         return result
     }
@@ -81,13 +82,13 @@ extension Subprocess {
         _ arguments: String...,
         workingDirectory: String = ".") -> [String] {
         
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).execute(true) else {
-            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
+        let process = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
+        guard let result = process.execute(true) else {
+            Error.die("Can't execute \"\(process)\"")
         }
         if result.status != 0 {
             let errorLines = result.errors == "" ? "" : "\n" + result.errors
-            Error.die("Process \(executablePath) returned non-zero status", errorLines, "\n",
-                      "with arguments: \(arguments.joinWithSeparator(" "))")
+            Error.die("Process \"\(process)\" returned status \(result.status)", errorLines)
         }
         return result.outputLines
     }
@@ -104,8 +105,9 @@ extension Subprocess {
         _ arguments: String...,
         workingDirectory: String = ".") -> Int32 {
         
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).run() else {
-            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
+        let process = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
+        guard let result = process.run() else {
+            Error.die("Can't execute \"\(process)\"")
         }
         return result
     }
@@ -121,12 +123,12 @@ extension Subprocess {
         _ arguments: String...,
         workingDirectory: String = ".") {
         
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).run() else {
-            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
+        let process =  Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
+        guard let result = process.run() else {
+            Error.die("Can't execute \"\(process)\"")
         }
         if result != 0 {
-            Error.die("Process \(executablePath) returned non-zero status\n",
-                      "with arguments: \(arguments.joinWithSeparator(" "))")
+            Error.die("Process \"\(process)\" returned status \(result)")
         }
     }
 }
