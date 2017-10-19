@@ -1,10 +1,26 @@
 //
-//  Subprocess.swift
-//  Morione
+//Copyright (c) Marco Conti 2016
 //
-//  Created by Marco Conti on 19/12/15.
-//  Copyright © 2015 com.marco83. All rights reserved.
 //
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//
+//The above copyright notice and this permission notice shall be included in
+//all copies or substantial portions of the Software.
+//
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//THE SOFTWARE.
 
 import Foundation
 
@@ -16,13 +32,16 @@ A definition of a subprocess to be invoked.
 public class Subprocess {
     
     /// The path to the executable
-    private let executablePath : String
+    let executablePath : String
     
     /// Arguments to pass to the executable
-    private let arguments : [String]
+    let arguments : [String]
     
     /// Working directory for the executable
-    private let workingDirectory : String
+    let workingDirectory : String
+    
+    /// Process to pipe to, if any
+    let pipeDestination : Subprocess?
     
     /**
      Returns a subprocess ready to be executed
@@ -30,13 +49,27 @@ public class Subprocess {
      - parameter arguments: the list of arguments. If not specified, no argument will be passed
      - parameter workingDirectiry: the working directory. If not specified, the current working directory will be used
     */
-    public init(
+    public convenience init(
         executablePath: String,
         arguments: [String] = [],
-        workingDirectory: String = ".") {
-            self.executablePath = executablePath
-            self.arguments = arguments
-            self.workingDirectory = workingDirectory
+        workingDirectory: String = "."
+        ) {
+        self.init(executablePath: executablePath,
+                  arguments: arguments,
+                  workingDirectory: workingDirectory,
+                  pipeTo: nil)
+    }
+    
+    private init(
+        executablePath: String,
+        arguments: [String] = [],
+        workingDirectory: String = ".",
+        pipeTo: Subprocess?
+        ) {
+        self.executablePath = executablePath
+        self.arguments = arguments
+        self.workingDirectory = workingDirectory
+        self.pipeDestination = pipeTo
     }
     
     /**
@@ -47,161 +80,107 @@ public class Subprocess {
         _ executablePath: String,
         _ arguments: String...,
         workingDirectory: String = ".") {
-            self.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
+            self.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory, pipeTo: nil)
     }
 }
 
+// MARK: - Public API
+extension Subprocess {
 
-// MARK: - Process execution
+    /**
+     Executes the subprocess and wait for completition, returning the exit status
+     - returns: the termination status, or nil if it was not possible to execute the process
+     */
+    public func run() -> Int32? {
+        return self.execute(false)?.status
+    }
+    
+    /**
+     Executes the subprocess and wait for completion, returning the output
+     - returns: the output of the process, or nil if it was not possible to execute the process
+     - warning: the entire output will be stored in a String in memory
+     */
+    public func output() -> String? {
+        return self.execute(true)?.output
+    }
+    
+    /**
+     Executes the subprocess and wait for completition, returning the exit status
+     - returns: the execution result, or nil if it was not possible to execute the process
+     */
+    public func execute(captureOutput: Bool = false) -> ExecutionResult? {
+        return buildPipeline(captureOutput).run()
+    }
+}
+
+// MARK: - Piping
 extension Subprocess {
     
-    /// Launches the task and wait for execution to complete. Will print any exception.
-    /// - param configure: the block that will be called before executing the task
-    /// - returns: nil if the task generated an exception
-    private func executeTask(configure: (NSTask)->() = { _ in }) -> NSTask? {
+    /// Pipes the output to this process to another process.
+    /// Will return a new subprocess, you should execute that subprocess to
+    /// run the entire pipe
+    public func pipe(to destination: Subprocess) -> Subprocess {
+        let downstreamProcess : Subprocess
+        if let existingPipe = self.pipeDestination {
+            downstreamProcess = existingPipe.pipe(to: destination)
+        } else {
+            downstreamProcess = destination
+        }
+        return Subprocess(executablePath: self.executablePath, arguments: self.arguments, workingDirectory: self.workingDirectory, pipeTo: downstreamProcess)
+    }
+}
+
+public func | (lhs: Subprocess, rhs: Subprocess) -> Subprocess {
+    return lhs.pipe(to: rhs)
+}
+
+public func | (lhs: String, rhs: String) -> String {
+    return "(\(lhs)\(rhs))"
+}
+
+// MARK: - Process execution
+public enum SubprocessError : ErrorType {
+    case Error(reason: String)
+}
+
+extension Subprocess {
+    
+    /// Returns the task to execute
+    private func task() -> NSTask {
         let task = NSTask()
         task.launchPath = self.executablePath
         task.arguments = self.arguments
         task.currentDirectoryPath = self.workingDirectory
-        configure(task)
-        
-        if let exception = MCMExecuteWithPossibleExceptionInBlock({
-            task.launch()
-        }) {
-            let reason = exception.reason ?? "unknown error"
-            print("Can not execute \(self.executablePath): \(reason)")
-            return nil
-        }
-        task.waitUntilExit()
         return task
     }
     
-    /**
-     Executes the subprocess and wait for completion
-     - returns: the exit status of the subprocess, or nil if it was not possible to execute the process
-     */
-    public func run() -> Int32? {
-        if let task = self.executeTask() {
-            return task.terminationStatus
+    /// Returns the task pipeline for all the downstream processes
+    private func buildPipeline(captureOutput: Bool, input: AnyObject? = nil) -> TaskPipeline {
+        let task = self.task()
+        
+        if let inPipe = input {
+            task.standardInput = inPipe
         }
-        return nil
+        
+        if let downstreamProcess = self.pipeDestination {
+            let downstreamPipeline = downstreamProcess.buildPipeline(captureOutput, input: task.standardOutput)
+            return downstreamPipeline.addToHead(task)
+        }
+        return TaskPipeline(task: task, captureOutput: captureOutput)
     }
 }
 
-// MARK: - Output
-extension Subprocess {
+// MARK: - Description
+extension Subprocess  : CustomStringConvertible {
     
-    /**
-     Executes the subprocess and wait for completion, returning the output
-     - returns: the execution result, including the output, or nil if it was not possible to execute the process
-     - warning: the entire output will be stored in a String in memory
-     */
-    public func runOutput() -> ExecutionResult? {
-        
-        let stdOutPipe = NSPipe()
-        let stdErrPipe = NSPipe()
-        
-        guard let task = self.executeTask({
-            $0.standardOutput = stdOutPipe
-            $0.standardError = stdErrPipe
-        }) else {
-            return nil
-        }
-        
-        let stdOutData = stdOutPipe.fileHandleForReading.readDataToEndOfFile()
-        let output = NSString(data: stdOutData, encoding: NSUTF8StringEncoding) as! String
-        
-        let stdErrData = stdErrPipe.fileHandleForReading.readDataToEndOfFile()
-        let errors = NSString(data: stdErrData, encoding: NSUTF8StringEncoding) as! String
-        
-        return ExecutionResult(status: task.terminationStatus, output: output, errors: errors)
-    }
-}
-
-// MARK: - Compact API
-extension Subprocess {
-    
-    /**
-     Executes a subprocess and wait for completion, returning the output. If there is an error in creating the task, 
-     it immediately exits the process with status 1
-     - returns: the output as a String
-     - note: in case there is any error in executing the process or creating the task, it will halt execution. Use 
-     the constructor and `runOutput` method for a more graceful error handling
-    */
-    public static func output(
-        executablePath: String,
-        _ arguments: String...,
-        workingDirectory: String = ".") -> String {
-        
-            guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).runOutput() else {
-                Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
-            }
-            if result.status != 0 {
-                let errorLines = result.errors == "" ? "" : "\n" + result.errors
-                Error.die("Process \(executablePath) returned non-zero status", errorLines, "\n",
-                    "with arguments: \(arguments.joinWithSeparator(" "))")
-            }
-            return result.output
-    }
-    
-    /**
-     Executes a subprocess and wait for completion, returning the output as an array of lines. If there is an error
-     in creating or executing the task, it immediately exits the process with status 1
-     - returns: the output as a String
-     - note: in case there is any error in executing the process or creating the task, it will halt execution. Use
-     the constructor and `runOutput` method for a more graceful error handling
-     */
-    public static func outputLines(
-        executablePath: String,
-        _ arguments: String...,
-        workingDirectory: String = ".") -> [String] {
-            
-            guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).runOutput() else {
-                Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
-            }
-            if result.status != 0 {
-                let errorLines = result.errors == "" ? "" : "\n" + result.errors
-                Error.die("Process \(executablePath) returned non-zero status", errorLines, "\n",
-                          "with arguments: \(arguments.joinWithSeparator(" "))")
-            }
-            return result.outputLines
-    }
-    
-    /**
-     Executes a subprocess and wait for completion, returning the exit status. If there is an error in creating the task,
-      it immediately exits the process with status 1
-     - returns: the output as a String
-     - note: in case there is any error in executing the process or creating the task, it will halt execution. Use
-     the constructor and `run` method for a more graceful error handling
-     */
-    public static func run(
-        executablePath: String,
-        _ arguments: String...,
-        workingDirectory: String = ".") -> Int32 {
-            
-            guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).runOutput() else {
-                Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
-            }
-            return result.status
-    }
-
-    /**
-     Executes a subprocess and wait for completion. If there is an error in creating the task, or if the tasks returns an exit status other than 0,
-     it immediately exits the process with status 1
-     - note: in case there is any error in executing the process or creating the task, or if the task exists with a exit status other than 0, it will halt execution. Use
-     the constructor and `run` method for a more graceful error handling
-     */
-    public static func runOrDie(
-        executablePath: String,
-        _ arguments: String...,
-        workingDirectory: String = ".") {
-        
-        guard let result = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory).run() else {
-            Error.die("Can't execute \(executablePath) \(arguments.joinWithSeparator(" "))")
-        }
-        if result != 0 {
-            Error.die("Process \(executablePath) returned non-zero status\n",
-                "with arguments: \(arguments.joinWithSeparator(" "))")
-        }
+    public var description : String {
+        return self.executablePath
+            + (self.arguments.count > 0
+                ? " " + self.arguments
+                .map { $0.stringByReplacingOccurrencesOfString(" ", withString: "\\ ") }
+                .joinWithSeparator(" ")
+                : ""
+            )
+            + (self.pipeDestination != nil ? " | " + self.pipeDestination!.description : "" )
     }
 }

@@ -20,6 +20,10 @@
 		541EABD41C258A49000DE3B2 /* file.txt in Resources */ = {isa = PBXBuildFile; fileRef = 541EABD31C258A49000DE3B2 /* file.txt */; };
 		541EABDA1C258FE0000DE3B2 /* ExecutionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */; };
 		541EABDC1C259149000DE3B2 /* ExecutionResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */; };
+		544B9F801D57173E00CF8D5D /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544B9F7F1D57173E00CF8D5D /* TestHelpers.swift */; };
+		549BB5401D50EC01004AB191 /* Subprocess+CompactAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BB53F1D50EC01004AB191 /* Subprocess+CompactAPI.swift */; };
+		549BB5421D50ED80004AB191 /* TaskPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BB5411D50ED80004AB191 /* TaskPipeline.swift */; };
+		549BB5441D50EEF1004AB191 /* PipingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BB5431D50EEF1004AB191 /* PipingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,12 @@
 		541EABD61C258BE3000DE3B2 /* localusage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localusage.swift; sourceTree = "<group>"; };
 		541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionResult.swift; sourceTree = "<group>"; };
 		541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionResultTests.swift; sourceTree = "<group>"; };
+		543955621D3D1EEA00E00DEC /* version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = version.xcconfig; sourceTree = "<group>"; };
+		544B9F7F1D57173E00CF8D5D /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		544B9F811D57497500CF8D5D /* copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copy.swift; sourceTree = "<group>"; };
+		549BB53F1D50EC01004AB191 /* Subprocess+CompactAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subprocess+CompactAPI.swift"; sourceTree = "<group>"; };
+		549BB5411D50ED80004AB191 /* TaskPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPipeline.swift; sourceTree = "<group>"; };
+		549BB5431D50EEF1004AB191 /* PipingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +88,7 @@
 			children = (
 				541EABC91C2570C5000DE3B2 /* README.md */,
 				541EABC71C2570AC000DE3B2 /* LICENSE */,
+				543955601D3D1EEA00E00DEC /* Resources */,
 				541EABAF1C256FF3000DE3B2 /* Sources */,
 				541EABBB1C256FF3000DE3B2 /* Tests */,
 				541EABD51C258BB8000DE3B2 /* Examples */,
@@ -100,6 +111,8 @@
 				541EABB01C256FF3000DE3B2 /* Morione.h */,
 				541EABB21C256FF3000DE3B2 /* Info.plist */,
 				541EABCA1C257415000DE3B2 /* Subprocess.swift */,
+				549BB5411D50ED80004AB191 /* TaskPipeline.swift */,
+				549BB53F1D50EC01004AB191 /* Subprocess+CompactAPI.swift */,
 				54001A091C6F26410082207D /* Error.swift */,
 				541EABD91C258FE0000DE3B2 /* ExecutionResult.swift */,
 				541EABCE1C257FC3000DE3B2 /* MCMExceptionHandler.h */,
@@ -114,8 +127,10 @@
 			children = (
 				541EABD21C258A36000DE3B2 /* Resources */,
 				541EABCC1C2577DF000DE3B2 /* SubprocessTests.swift */,
+				549BB5431D50EEF1004AB191 /* PipingTests.swift */,
 				541EABDB1C259149000DE3B2 /* ExecutionResultTests.swift */,
 				5405CF061C25DB8E008C3605 /* StringOutputParsingTests.swift */,
+				544B9F7F1D57173E00CF8D5D /* TestHelpers.swift */,
 				541EABBE1C256FF3000DE3B2 /* Info.plist */,
 			);
 			path = Tests;
@@ -133,9 +148,26 @@
 		541EABD51C258BB8000DE3B2 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				544B9F811D57497500CF8D5D /* copy.swift */,
 				541EABD61C258BE3000DE3B2 /* localusage.swift */,
 			);
 			path = Examples;
+			sourceTree = "<group>";
+		};
+		543955601D3D1EEA00E00DEC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				543955611D3D1EEA00E00DEC /* Configurations */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		543955611D3D1EEA00E00DEC /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				543955621D3D1EEA00E00DEC /* version.xcconfig */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +282,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5405CF051C25DB36008C3605 /* String+OutputParsing.swift in Sources */,
+				549BB5401D50EC01004AB191 /* Subprocess+CompactAPI.swift in Sources */,
+				549BB5421D50ED80004AB191 /* TaskPipeline.swift in Sources */,
 				541EABD11C257FC3000DE3B2 /* MCMExceptionHandler.m in Sources */,
 				541EABDA1C258FE0000DE3B2 /* ExecutionResult.swift in Sources */,
 				54001A0A1C6F26410082207D /* Error.swift in Sources */,
@@ -262,7 +296,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				541EABDC1C259149000DE3B2 /* ExecutionResultTests.swift in Sources */,
+				544B9F801D57173E00CF8D5D /* TestHelpers.swift in Sources */,
 				5405CF071C25DB8E008C3605 /* StringOutputParsingTests.swift in Sources */,
+				549BB5441D50EEF1004AB191 /* PipingTests.swift in Sources */,
 				541EABCD1C2577DF000DE3B2 /* SubprocessTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +316,7 @@
 /* Begin XCBuildConfiguration section */
 		541EABBF1C256FF3000DE3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 543955621D3D1EEA00E00DEC /* version.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -327,6 +364,7 @@
 		};
 		541EABC01C256FF3000DE3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 543955621D3D1EEA00E00DEC /* version.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

@@ -1,10 +1,26 @@
 //
-//  SubprocessTests.swift
-//  Morione
+//Copyright (c) Marco Conti 2016
 //
-//  Created by Marco Conti on 19/12/15.
-//  Copyright © 2015 com.marco83. All rights reserved.
 //
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//
+//The above copyright notice and this permission notice shall be included in
+//all copies or substantial portions of the Software.
+//
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//THE SOFTWARE.
 
 import XCTest
 import Morione
@@ -14,27 +30,6 @@ class SubprocessTests: XCTestCase {
 
 // MARK: - Return code
 extension SubprocessTests {
-    
-    /// Returns a file path that does not to exists at the moment.
-    /// It is not guaranteed that it won't exists in future, but the chances
-    /// are extremely low
-    private func nonExistingFileName() -> String {
-        while(true) {
-            let uuidString = "/\(NSUUID().hash)/\(NSUUID().hash)"
-            if !NSFileManager.defaultManager().fileExistsAtPath(uuidString) {
-                return uuidString
-            }
-        }
-    }
-    
-    /// Returns a file path to a file that exists, but it's not executable
-    /// It is not guaranteed that it won't be executable in future, but it's unlikely
-    private func nonExecutableFileName() -> String {
-        let nonExecutable = NSBundle(forClass: SubprocessTests.self).pathForResource("file", ofType: "txt")
-        assert(NSFileManager.defaultManager().fileExistsAtPath(nonExecutable!))
-        assert(!NSFileManager.defaultManager().isExecutableFileAtPath(nonExecutable!))
-        return nonExecutable!
-    }
     
     func testThatItReturnsTheSuccessfulExitCodeOfEcho() {
         
@@ -51,8 +46,8 @@ extension SubprocessTests {
     func testThatItReturnsTheInsuccessfulExitCodeOfLS() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess("/bin/ls", nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess("/bin/ls", noFile)
         
         // when
         let result = sut.run()
@@ -64,8 +59,8 @@ extension SubprocessTests {
     func testThatItReturnNilIfTheExecutableDoesNotExist() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess(nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess(noFile)
         
         // when
         let result = sut.run()
@@ -77,7 +72,7 @@ extension SubprocessTests {
     func testThatItReturnNilIfTheExecutableIsNotExecutable() {
         
         // given
-        let nonExecutable = self.nonExecutableFileName()
+        let nonExecutable = nonExecutableFileName()
         let sut = Subprocess(nonExecutable)
         
         // when
@@ -117,7 +112,7 @@ extension SubprocessTests {
         let sut = Subprocess("/bin/echo", "Foo\no")
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute(true)
         
         // then
         XCTAssertEqual(result!.status, 0)
@@ -128,26 +123,26 @@ extension SubprocessTests {
     func testThatItReturnsTheErrorOutputOfLS() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess("/bin/ls", nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess("/bin/ls", noFile)
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute(true)
         
         // then
         XCTAssertEqual(result!.status, 1)
         XCTAssertEqual(result!.output, "")
-        XCTAssertEqual(result!.errors, "ls: \(nonExistingFileName): No such file or directory\n")
+        XCTAssertEqual(result!.errors, "ls: \(noFile): No such file or directory\n")
     }
     
     func testThatItReturnNilOutputIfTheExecutableDoesNotExist() {
         
         // given
-        let nonExistingFileName = self.nonExistingFileName()
-        let sut = Subprocess(nonExistingFileName)
+        let noFile = nonExistingFileName()
+        let sut = Subprocess(noFile )
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute()
         
         // then
         XCTAssertNil(result)
@@ -156,11 +151,11 @@ extension SubprocessTests {
     func testThatItReturnNilOutputIfTheExecutableIsNotExecutable() {
         
         // given
-        let nonExecutable = self.nonExecutableFileName()
+        let nonExecutable = nonExecutableFileName()
         let sut = Subprocess(nonExecutable)
         
         // when
-        let result = sut.runOutput()
+        let result = sut.execute()
         
         // then
         XCTAssertNil(result)
@@ -179,19 +174,19 @@ extension SubprocessTests {
         let sut = Subprocess("/bin/pwd", workingDirectory: expectedDirectory)
         
         // then
-        XCTAssertEqual(sut.runOutput()!.output, expectedDirectory+"\n")
+        XCTAssertEqual(sut.output(), expectedDirectory+"\n")
     }
     
     func testThatItReturnsNilIfTheWorkingDirectoryDoesNotExist() {
         
         // given
-        let nonExistingPath = self.nonExistingFileName()
+        let nonExistingPath = nonExistingFileName()
         
         // when
         let sut = Subprocess("/bin/pwd", workingDirectory: nonExistingPath)
 
         // then
-        XCTAssertNil(sut.runOutput())
+        XCTAssertNil(sut.output())
     }
 }
 
@@ -229,7 +224,7 @@ extension SubprocessTests {
     func testThatItReturnsTheExitStatusOnErrorWithCompactAPI() {
         
         // when
-        let result = Subprocess.run("/bin/ls", self.nonExistingFileName())
+        let result = Subprocess.run("/bin/ls", nonExistingFileName())
         
         // then
         XCTAssertNotEqual(result, 0)
@@ -241,5 +236,53 @@ extension SubprocessTests {
         Subprocess.runOrDie("/bin/ls")
         
         // then: not crashing
+    }
+}
+
+// MARK: - Description
+extension SubprocessTests {
+    
+    func testThatItDescribesExecutable() {
+        
+        // given
+        let path = "/bin/ls"
+        let sut = Subprocess(path)
+        
+        // then
+        XCTAssertEqual(sut.description, path)
+    }
+    
+    func testThatItDescribesExecutableAndArguments() {
+        
+        // given
+        let path = "/bin/ls"
+        let sut = Subprocess(path, "-l", "foo")
+        
+        // then
+        XCTAssertEqual(sut.description, "\(path) -l foo")
+    }
+    
+    func testThatItDescribesExecutableAndArgumentsWithSpace() {
+        
+        // given
+        let path = "/bin/ls"
+        let sut = Subprocess(path, "-l", "My Documents")
+        
+        // then
+        XCTAssertEqual(sut.description, "\(path) -l My\\ Documents")
+    }
+    
+    func testThatItDescribesPipe() {
+        
+        // given
+        let sut1 = Subprocess("/bin/echo", "That's it")
+        let sut2 = Subprocess("/usr/bin/grep", "it")
+        let sut3 = Subprocess("/usr/bin/sed", "s/it/not it/")
+        
+        // when
+        let sut = sut1 | sut2 | sut3
+        
+        // then
+        XCTAssertEqual(sut.description, "\(sut1.description) | \(sut2.description) | \(sut3.description)")
     }
 }
