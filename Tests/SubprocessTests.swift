@@ -83,6 +83,26 @@ extension SubprocessTests {
     }
 }
 
+// MARK: - Input
+extension SubprocessTests {
+    
+    func testThatItPassesTheExactArguments() {
+        
+        // given
+        let binary = NSBundle(forClass: self.dynamicType).URLForResource("wcarg", withExtension: ".sh")!.path!
+        let sut = Subprocess(binary, "1$23")
+        
+        // when
+        let result = sut.runOutput()
+        
+        // then
+        XCTAssertEqual(result?.output, "49 36 50 51\n")
+    }
+}
+
+
+
+
 // MARK: - Output
 extension SubprocessTests {
     
