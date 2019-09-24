@@ -41,7 +41,7 @@ extension Subprocess {
         workingDirectory: String = ".") -> String {
         
         let process = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
-        guard let result = process.execute(true) else {
+        guard let result = process.execute(captureOutput: true) else {
             Error.die("Can't execute \"\(process)\"")
         }
         if result.status != 0 {
@@ -64,7 +64,7 @@ extension Subprocess {
         workingDirectory: String = ".") -> ExecutionResult {
         
         let process = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
-        guard let result = process.execute(true) else {
+        guard let result = process.execute(captureOutput: true) else {
             Error.die("Can't execute \"\(process)\"")
         }
         return result
@@ -83,7 +83,7 @@ extension Subprocess {
         workingDirectory: String = ".") -> [String] {
         
         let process = Subprocess.init(executablePath: executablePath, arguments: arguments, workingDirectory: workingDirectory)
-        guard let result = process.execute(true) else {
+        guard let result = process.execute(captureOutput: true) else {
             Error.die("Can't execute \"\(process)\"")
         }
         if result.status != 0 {

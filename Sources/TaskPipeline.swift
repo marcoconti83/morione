@@ -24,15 +24,15 @@
 
 import Foundation
 
-extension NSTask {
+extension Process {
     
     /// Launches a task, captures any objective-c exception and relaunches it as Swift error
-    private func launchCapturingExceptions() throws {
+    func launchCapturingExceptions() throws {
         if let exception = MCMExecuteWithPossibleExceptionInBlock({
             self.launch()
         }) {
             let reason = exception.reason ?? "unknown error"
-            throw SubprocessError.Error(reason: reason)
+            throw SubprocessError.error(reason: reason)
         }
     }
 }
@@ -41,27 +41,27 @@ extension NSTask {
 struct TaskPipeline {
     
     /// List of tasks in the pipeline
-    let tasks: [NSTask]
+    let tasks: [Process]
     
     /// Output pipe
-    let outputPipe: NSPipe?
+    let outputPipe: Pipe?
     
     /// Whether the pipeline should capture output to stdErr and stdOut
     let captureOutput : Bool
     
     /// Adds a task to the head of the pipeline, that is, the task will provide the input
     /// for the first task currently on the head of the pipeline
-    func addToHead(task: NSTask) -> TaskPipeline {
+    func addToHead(task: Process) -> TaskPipeline {
         guard let firstTask = tasks.first else {
             fatalError("Expecting at least one task")
         }
-        let inoutPipe = NSPipe()
+        let inoutPipe = Pipe()
         firstTask.standardInput = inoutPipe
         task.standardOutput = inoutPipe
         
-        var errorPipe : NSPipe?
+        var errorPipe : Pipe?
         if self.captureOutput {
-            errorPipe = NSPipe()
+            errorPipe = Pipe()
             task.standardError = errorPipe
         }
         return TaskPipeline(tasks: [task] + self.tasks, outputPipe: self.outputPipe, captureOutput: self.captureOutput)
@@ -86,17 +86,17 @@ struct TaskPipeline {
         
         // output
         let errorOutput = runTasks.map { task -> String in
-            guard let errorPipe = task.standardError as? NSPipe else { return "" }
+            guard let errorPipe = task.standardError as? Pipe else { return "" }
             let readData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-            return String(data: readData, encoding: NSUTF8StringEncoding)!
+            return String(data: readData, encoding: String.Encoding.utf8)!
         }
-        let output = String(data: self.outputPipe!.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+        let output = String(data: self.outputPipe!.fileHandleForReading.readDataToEndOfFile(), encoding: String.Encoding.utf8)!
         return ExecutionResult(pipelineStatuses: exitStatuses, pipelineErrors: errorOutput, output: output)
     }
     
     /// Run all tasks and return the tasks that did not fail to launch
-    private func launchAndReturnNotFailedTasks() -> [NSTask] {
-        return self.tasks.flatMap { task -> NSTask? in
+    private func launchAndReturnNotFailedTasks() -> [Process] {
+        return self.tasks.compactMap { task -> Process? in
             do {
                 try task.launchCapturingExceptions()
                 return task
@@ -106,20 +106,20 @@ struct TaskPipeline {
         }
     }
     
-    init(task: NSTask, captureOutput: Bool) {
+    init(task: Process, captureOutput: Bool) {
         self.tasks = [task]
         self.captureOutput = captureOutput
         if captureOutput {
-            self.outputPipe = NSPipe()
+            self.outputPipe = Pipe()
             task.standardOutput = self.outputPipe
-            let errorPipe = NSPipe()
+            let errorPipe = Pipe()
             task.standardError = errorPipe
         } else {
             self.outputPipe = nil
         }
     }
     
-    private init(tasks: [NSTask], outputPipe: NSPipe?, captureOutput: Bool) {
+    private init(tasks: [Process], outputPipe: Pipe?, captureOutput: Bool) {
         self.tasks = tasks
         self.outputPipe = outputPipe
         self.captureOutput = captureOutput
